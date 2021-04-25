@@ -1,6 +1,15 @@
 defmodule InmanaWeb.Router do
   use InmanaWeb, :router
 
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {InmanaWeb.LayoutView, :root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -15,6 +24,13 @@ defmodule InmanaWeb.Router do
     resources "/supplies", SuppliesController, only: [:create, :show]
   end
 
+  scope "/", InmanaWeb do
+    # Use the default browser stack
+    pipe_through :browser
+
+    live "/", PageLive, :index
+  end
+
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -25,7 +41,7 @@ defmodule InmanaWeb.Router do
   if Mix.env() in [:dev, :test] do
     import Phoenix.LiveDashboard.Router
 
-    scope "/" do
+    scope "/dash" do
       pipe_through [:fetch_session, :protect_from_forgery]
       live_dashboard "/dashboard", metrics: InmanaWeb.Telemetry
     end

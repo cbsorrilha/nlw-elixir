@@ -44,7 +44,11 @@ defmodule Inmana.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:bamboo, "~> 2.1.0"}
+      {:bamboo, "~> 2.1.0"},
+      {:phoenix_live_view, "~> 0.15.4"},
+      {:floki, ">= 0.30.0", only: :test},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev}
     ]
   end
 
@@ -56,7 +60,7 @@ defmodule Inmana.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup"],
+      setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]

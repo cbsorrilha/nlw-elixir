@@ -20,7 +20,7 @@ config :inmana, Inmana.Mailer, adapter: Bamboo.LocalAdapter
 config :inmana, InmanaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "5dT9fz9SE1xQj7OuBLiW4Lmw6gRMBS0lg79p1uAnVJeg6hsdZzpbVjfXmQgJJ3n1",
-  render_errors: [view: InmanaWeb.ErrorView, accepts: ~w(json), layout: false],
+  render_errors: [view: InmanaWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Inmana.PubSub,
   live_view: [signing_salt: "jJS5wXFa"]
 

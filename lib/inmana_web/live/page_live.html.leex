@@ -1,0 +1,25 @@
+<section class="phx-hero">
+  <h1>Restaurantes</h1>
+  <%= for %Inmana.Restaurant{ name: name, supplies: supplies } <- @restaurants do %>
+    <div class="row">
+      <div class="column">
+        <h3><%= name %></h3>
+        <h4>À vencer:</h4>
+        <ul>
+          <%= for %Inmana.Supply{ description: description, expiration_date: expiration_date, responsible: responsible} <- supplies do %>
+            <div>
+              <strong><%= description %></strong>
+            </div>
+            <div>
+              <span>Vence em: <%= expiration_date %></span>
+            </div>
+            <div>
+              <span>responsável: <%= responsible %></span>
+            </div>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+</section>
